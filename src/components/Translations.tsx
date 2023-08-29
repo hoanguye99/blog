@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Flex, Badge, Link } from '@theme-ui/components'
 
-import Ads from './Ads'
 import HighlightBox from './HighlightBox'
 
 type Props = {
@@ -34,22 +33,13 @@ const Translations = ({ children }: Props) => (
     ) : (
       <i>No translations available.</i>
     )}
-    <Flex as="li">
-      <Link
-        href="https://github.com/TkDodo/blog/blob/main/CONTRIBUTING.md#translations"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Add translation
-      </Link>
-    </Flex>
+    <Flex as="li"></Flex>
   </Flex>
 )
 
 const TranslationsWrapper = ({ children }: Props) => {
   return (
     <Flex sx={{ flexDirection: 'column', gap: 1 }}>
-      <Ads />
       <HighlightBox>
         <Translations>{children}</Translations>
       </HighlightBox>

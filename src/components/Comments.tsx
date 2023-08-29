@@ -20,10 +20,10 @@ const Comments = () => {
   return mounted ? (
     <Giscus
       id={id}
-      repo="tkdodo/blog-comments"
-      repoId="MDEwOlJlcG9zaXRvcnkyOTE1MzI1NjI="
+      repo="hoanguye99/blog"
+      repoId="R_kgDOKMS_Rw"
       category="Announcements"
-      categoryId="DIC_kwDOEWBvEs4COl22"
+      categoryId="DIC_kwDOKMS_R84CY6oL"
       mapping="pathname"
       reactionsEnabled="1"
       emitMetadata="0"

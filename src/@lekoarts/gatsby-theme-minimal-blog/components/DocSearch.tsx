@@ -12,11 +12,12 @@ const DocSearch = () => {
   }, [colorMode])
 
   return (
-    <AlogliaDocSearch
-      appId="RZU5DA6ADF"
-      indexName="tkdodo"
-      apiKey="591cc4615be3e8ed13feb3abe602516d"
-    />
+    // <AlogliaDocSearch
+    //   appId="RZU5DA6ADF"
+    //   indexName="tkdodo"
+    //   apiKey="591cc4615be3e8ed13feb3abe602516d"
+    // />
+    <></>
   )
 }
 

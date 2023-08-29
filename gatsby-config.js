@@ -8,11 +8,11 @@ module.exports = {
   pathPrefix: `/blog`,
   trailingSlash: 'never',
   siteMetadata: {
-    author: 'TkDodo',
-    siteTitle: "TkDodo's blog",
-    siteTitleAlt: `TkDodo's blog`,
-    siteHeadline: `TkDodo's blog`,
-    siteUrl: `https://tkdodo.eu/blog`,
+    author: 'hoanguye99',
+    siteTitle: 'hoanguye99',
+    siteTitleAlt: `hoanguye99`,
+    siteHeadline: `hoanguye99`,
+    siteUrl: `https://hoanguye99.vn/blog`,
     siteDescription: `A technical blog about frontend-development, TypeScript and React`,
     siteLanguage: `en`,
   },
@@ -108,24 +108,12 @@ module.exports = {
             title: `Tags`,
             slug: `/tags`,
           },
-          {
-            title: `Sponsors`,
-            slug: `/sponsors`,
-          },
-          {
-            title: `Rss`,
-            slug: `/rss.xml`,
-          },
         ],
         externalLinks: [
           {
-            name: `Twitter`,
-            url: `https://twitter.com/tkdodo`,
-          },
-          {
             name: `Github`,
 
-            url: `https://github.com/tkdodo`,
+            url: `https://github.com/hoanguye99`,
           },
         ],
         feed: false,
@@ -135,8 +123,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `TkDodo's blog`,
-        short_name: `tkdodo-blog`,
+        name: `hoanguye99`,
+        short_name: `hoanguye99`,
         description: `A technical blog about frontend-development, Typescript and React`,
         start_url: `/`,
         background_color: `#fff`,
@@ -155,7 +143,7 @@ module.exports = {
     {
       resolve: `@devular/gatsby-plugin-plausible`,
       options: {
-        domain: `tkdodo.eu`,
+        domain: `hoanguye99.vn`,
         proxyScript: `/js/script.js`,
         proxyApi: `/api/event`,
       },
@@ -201,7 +189,7 @@ module.exports = {
                         }
                         `,
             output: `rss.xml`,
-            title: `TkDodo's blog`,
+            title: `hoanguye99`,
           },
         ],
       },
