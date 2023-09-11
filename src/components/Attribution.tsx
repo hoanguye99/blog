@@ -5,17 +5,21 @@ import SmallCentered from './SmallCentered'
 
 type Props = {
   name: string
-  url: string
+  url?: string
   prefix?: string
 }
 
-const Attribution = ({ name, url, prefix = 'Photo by' }: Props) => (
+const Attribution = ({ name, url, prefix = '' }: Props) => (
   <>
     <SmallCentered>
       {prefix}{' '}
-      <Link href={url} target="_blank" rel="noreferrer noopener">
-        {name}
-      </Link>
+      {url ? (
+        <Link href={url} target="_blank" rel="noreferrer noopener">
+          {name}
+        </Link>
+      ) : (
+        <>{name}</>
+      )}
     </SmallCentered>
   </>
 )

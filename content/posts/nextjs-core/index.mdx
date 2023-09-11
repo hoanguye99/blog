@@ -1,0 +1,66 @@
+---
+title: NextJS Core
+description: Brief Introduction to NextJS
+date: 2023-09-11
+banner: ./next-js.png
+tags:
+  - ReactJS
+  - NextJS
+  - Fundamentals
+---
+
+
+import Attribution from 'components/Attribution'
+import Comments from 'components/Comments'
+import Translations from 'components/Translations'
+
+<img src="./next-js.png" />
+
+- [#1: React JS Core](react-core)
+- [#2: In defense of useEffect](putting-props-to-use-state)
+- <b>#3: NextJS Core</b>
+
+<Translations>{[]}</Translations>
+
+### Hoàn cảnh ra đời của NextJS
+
+With React, SPA and CSR:
++ Client machines download JS code, then execute to generate HTML, CSS and JS
++ Slow machines and slow 3G 😭
++ Google search Engine bots, or social media cards 😭
+
+With NextJS:
++ Prerender HTML -> Send client HTML for initial view, JS bundles for interactivity 😀
++ Prerender site for SEO 😀
+
+### Brief Introduction to NextJS
+
+Head over to the NextJS [home page](https://nextjs.org/) to find out more. It does a wonderful job of introducing the framework.
+
+Some thing that Next JS do:
+
+- Fullstack framework for building website, with good SEO and additional features and optimizations, like a manufacturer
+- Tooling automatically configured under the hood: bundling, compiling, dev server, ...
+- Routing: file-system based routing
+- Optimizations: Image, Fonts, Links, code splitting, ...
+- Styling: Support for TailwindCSS
+- Typescript
+- Rendering: Client Side Rendering vs. Pre-rendering
+
+### Zero Configuration
+
+- Set up a Production Ready website with just a single command: create-next-app
+- Little things done well with no configs needed: images and links
+- Appreciation Vercel [products](https://vercel.com/) and mindsets: helping developers to focus on building app without spending time on config hell (👋 webpack, gulp, loaders)
+- Vercel Hosting : Use Github to update project with just one button
+- Auto CI-CD
+- Preview with comments: Faster iteration
+- Serverless and the Edge
+- Monorepos: [Turborepo](https://turbo.build/repo)
+- Build Tools and Bundling Tool: [TurboPack](https://turbo.build/pack)
+
+---
+
+That's it for today. If you have any questions, or just leave a comment below. ⬇️
+
+<Comments />
