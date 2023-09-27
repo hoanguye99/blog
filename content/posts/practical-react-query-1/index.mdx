@@ -1,0 +1,140 @@
+---
+title: Practical React Query 1 - tips and tricks
+description: Practical React Query - Part 1 - tips and tricks
+date: 2023-09-25
+banner: ./react-query-banner.png
+tags:
+  - Fundamentals
+  - React Query
+---
+
+import Attribution from 'components/Attribution'
+import Comments from 'components/Comments'
+import Translations from 'components/Translations'
+import { FetchingComparison } from './comparison.tsx'
+
+<img src="./react-query-banner.png" />
+
+- [#1: Client State vs. Server State](client-state-vs-server-state)
+- <b>#2: Practical React Query 1 - tips and tricks</b>
+- [#3: Practical React Query 2 - custom hooks and query key factory](practical-react-query-2-custom-hooks-and-query-key-factory)
+
+<Translations>{[]}</Translations>
+
+In part 1, we will learn about React Quey tips and tricks: the `useQuery` hook
+
+### Standard Example
+
+Your query can be in one of the following states:
+
+- `success`: Your query was successful, and you have data for it
+- `error`: Your query did not work, and an error is set
+- `loading`: Your query has no data and is currently loading for the first time
+
+Most examples look something like this:
+
+```tsx:title=standard-example
+const todos = useTodos()
+
+if (todos.isLoading) {
+  return 'Loading...'
+}
+if (todos.error) {
+  return 'An error has occurred: ' + todos.error.message
+}
+
+return <div>{todos.data.map(renderTodo)}</div>
+```
+
+### React Query is NOT a data fetching library
+
+React Query can't answer the following questions:
+
+- How can I define a baseURL with React Query ?
+- How can I access response headers with React Query?
+- How can I make graphQL requests with React Query?
+
+React Query doesn't care! Just somehow return a Promise, please.
+
+### Lab Excercise: Use the React Query DevTools
+
+Query State = `loading` | `stale` | `fresh`
+
+Anh thấy mọi người trong team vẫn chưa chú trọng sử dụng Dev Tool.
+
+Cung cấp thông tin về số lượng, trạng thái và cả dữ liệu bên trong (sử dụng chung với option throttle network)
+
+### Initial data fetch ≠ background refetch
+
+Use SOC Portal to demo. Mặc dù nhìn trên giao diện khi đổi qua đổi lại các trang, dữ liệu có vẻ không thay đổi nhưng ở bên dưới đang có background refetch khá nhiều.
+
+<FetchingComparison />
+
+### Avoid mounts in different render cycle
+
+React Query automatically deduplicate requests that would happen at the same time.
+
+```tsx:title=only-one-network-request
+export const useTodos = () =>
+  useQuery({ queryKey: ['todos'], queryFn: fetchTodos })
+
+function ComponentOne() {
+  const { data } = useTodos()
+}
+
+function ComponentTwo() {
+  // ✅ will get exactly the same data as ComponentOne
+  const { data } = useTodos()
+}
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ComponentOne />
+      <ComponentTwo />
+    </QueryClientProvider>
+  )
+}
+```
+
+React Query can't deduplicate with mounts in different render cycle.
+
+```tsx:title=two-network-request-on-first-mount
+export const useTodos = () =>
+  useQuery({ queryKey: ['todos'], queryFn: fetchTodos })
+
+function ComponentOne() {
+  const { data } = useTodos()
+
+  if (data) {
+    // ⚠️ mounts conditionally, only after we already have data
+    return <ComponentTwo />
+  }
+  return <Loading />
+}
+
+function ComponentTwo() {
+  // ⚠️ will thus trigger a second network request
+  const { data } = useTodos()
+}
+
+```
+
+### The enabled option is very powerful
+
+Use CodeSandbox and MonoRepo?
+
+The `useQuery` hook has many options that you can pass in to customize its behaviour, and the enabled option is a very powerful one that enables you to do many cool things (pun intended). Here is a short list of things that we were able to accomplish thanks to this option:
+
+- **Dependent Queries** <br/>
+  Fetch data in one query and have a second query only run once we have successfully obtained data from the first query.
+
+- **Wait for user input** <br/>
+  Have some filter criteria in the query key, but disable it for as long as the user has not applied their filters.
+
+- **Turn queries on and off** <br/>
+  We have one query that polls data regularly thanks to refetchInterval, but we can temporarily pause it if a Modal is open to avoid updates in the back of the screen.
+
+### Treat the query key like a dependency array + A new cache entry
+
+CodeSandbox

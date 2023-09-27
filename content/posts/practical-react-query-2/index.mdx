@@ -1,0 +1,44 @@
+---
+title: Practical React Query 2 - custom hooks and query key factory
+description: Practical React Query - Part 2
+date: 2023-09-28
+banner: ./react-query-banner.png
+tags:
+  - Fundamentals
+  - React Query
+---
+
+import Attribution from 'components/Attribution'
+import Comments from 'components/Comments'
+import Translations from 'components/Translations'
+
+<img src="./react-query-banner.png" />
+
+- [#1: Client State vs. Server State](client-state-vs-server-state)
+- [#2: Practical React Query 1 - tips and tricks](practical-react-query-1-tips-and-tricks)
+- <b>
+    #3: Practical React Query 2 - custom hooks and query key factory
+  </b>
+
+<Translations>{[]}</Translations>
+
+In part 2, we will learn about React Quey tips and tricks: the `useQuery` hook and mutations
+
+## Custom Hooks
+
+Even if it's only for wrapping one useQuery call, creating a custom hook usually pays off because:
+
+- You can keep the actual data fetching out of the ui, but co-located with your useQuery call.
+- You can keep all usages of one query key (and potentially type definitions) in one file.
+- If you need to tweak some settings or add some data transformation, you can do that in one place.
+
+You have already seen an example of that in the todos queries above.
+
+## Query Key factory
+
+It is good because you can do this:
+
+```tsx:title=setting-defaults-to-all-todo-related
+// 🚀 everything todo-related will have a 1 minute staleTime
+queryClient.setQueryDefaults(todoKeys.all, { staleTime: 1000 * 60 })
+```

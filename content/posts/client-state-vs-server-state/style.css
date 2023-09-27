@@ -1,0 +1,24 @@
+.container-special .ant-table {
+  background: transparent !important;
+  border: 1px pink solid;
+}
+.container-special .ant-table-thead > tr > th {
+  background: transparent !important;
+  border: 1px pink solid;
+  background: #f0666b !important;
+  text-align: center;
+}
+.container-special .ant-table-tbody > tr > td {
+  border: 1px pink solid;
+}
+
+.container-special .ant-table-tbody > tr.ant-table-row:hover > td,
+.ant-table-tbody > tr > td.ant-table-cell-row-hover {
+  background: #f0666b !important;
+}
+.container-special a,
+th,
+td {
+  color: white !important;
+  font-size: 20px;
+}
