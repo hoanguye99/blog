@@ -1,0 +1,112 @@
+---
+title: Practical React Query 3 - client state Zustand
+description: Practical React Query - Part 3
+date: 2023-10-02
+banner: ./react-query-banner.png
+tags:
+  - Fundamentals
+  - React Query
+---
+
+import Attribution from 'components/Attribution'
+import Comments from 'components/Comments'
+import Translations from 'components/Translations'
+
+<img src="./react-query-banner.png" />
+
+<Translations>{[]}</Translations>
+
+In part 3, we will learn about React Query in combination with client state management - Zustand
+
+I want this post to be exactly like this.
+
+[Link](https://tkdodo.eu/blog/react-query-fa-qs#how-can-i-pass-parameters-to-refetch)
+
+Fetch data of different user and display
+
+```tsx:title=dynamic-query-function
+const [id, setId] = useState(1)
+
+const { data } = useQuery({
+  queryKey: ['item'],
+  queryFn: () => fetchItem({ id }),
+})
+
+<button onClick={() => {
+  // ✅ set id without explicitly refetching
+  setId(1)
+}})>Show Item 1</button>
+
+<button onClick={() => {
+  // ✅ set id without explicitly refetching
+  setId(2)
+}})>Show Item 2</button>
+```
+
+But this quite doesn't work, we have to manually refetch.
+
+```tsx:title=dynamic-query-function-with-refetch {11,17}
+const [id, setId] = useState(1)
+
+const { data, refetch } = useQuery({
+  queryKey: ['item'],
+  queryFn: () => fetchItem({ id }),
+})
+
+<button onClick={() => {
+  // ✅ set id without explicitly refetching
+  setId(1)
+  refetch()
+}})>Show Item 1</button>
+
+<button onClick={() => {
+  // ✅ set id without explicitly refetching
+  setId(2)
+  refetch()
+}})>Show Item 2</button>
+```
+
+Problem: Data in the cache is overwriten
+
+```tsx:title=dynamic-query-key
+const [id, setId] = useState(1)
+
+const { data, refetch } = useQuery({
+  queryKey: ['item', id],
+  queryFn: () => fetchItem({ id }),
+})
+
+<button onClick={() => {
+  // ✅ set id without explicitly refetching
+  setId(1)
+}})>Show Item 1</button>
+
+<button onClick={() => {
+  // ✅ set id without explicitly refetching
+  setId(2)
+}})>Show Item 2</button>
+```
+
+your thinking goes from: "If I click that button, I want to refetch" towards: "I always want to see data for the current id".
+
+### Usage With Zustand & more practical example
+
+Place setID inside a set input number
+
+#### Zustand
+
+Here is zustand
+
+#### `keepPreviousData` for better UX
+
+### Place State Variable inside Query Key
+
+I usually hook state variable with user input like text and select option - controlled components, and then hook the control state to the query key.
+The control flow looks like this:
+
+- Initial Data Load with pre-existing options
+- User interact with input
+- Input state change reflect in state change
+- Query Key change -> New cache entry
+- The query change to hard loading state
+- New data comes and display
