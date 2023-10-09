@@ -93,9 +93,30 @@ your thinking goes from: "If I click that button, I want to refetch" towards: "I
 
 Place setID inside a set input number
 
+
 #### Zustand
 
-Here is zustand
+Here is useState:
+
+```tsx:title=dynamic-query-key
+const [selectedOption, setSelectedOption] = useState<number | null>(null);
+```
+
+Here is zustand:
+
+```tsx:title=dynamic-query-key
+import create from "zustand";
+
+interface SelectedOptionStore {
+  selectedOption: number | null;
+  setSelectedOption: (option: number | null) => void;
+}
+
+export const useSelectedOptionStore = create<SelectedOptionStore>((set) => ({
+  selectedOption: null,
+  setSelectedOption: (option) => set({ selectedOption: option })
+}));
+```
 
 #### `keepPreviousData` for better UX
 

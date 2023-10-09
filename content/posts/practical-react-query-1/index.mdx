@@ -75,16 +75,19 @@ Use SOC Portal to demo. Mặc dù nhìn trên giao diện khi đổi qua đổi 
 React Query automatically deduplicate requests that would happen at the same time.
 
 ```tsx:title=only-one-network-request
-export const useTodos = () =>
-  useQuery({ queryKey: ['todos'], queryFn: fetchTodos })
+export const useUserList1 = () =>
+  useQuery({ queryKey: ["users"], queryFn: getUsers });
+
+export const useUserList2 = () =>
+  useQuery({ queryKey: ["users"], queryFn: getUsers });
 
 function ComponentOne() {
-  const { data } = useTodos()
+  const { data } = useUserList1()
 }
 
 function ComponentTwo() {
   // ✅ will get exactly the same data as ComponentOne
-  const { data } = useTodos()
+  const { data } = useUserList2()
 }
 
 function App() {
@@ -100,11 +103,11 @@ function App() {
 React Query can't deduplicate with mounts in different render cycle.
 
 ```tsx:title=two-network-request-on-first-mount
-export const useTodos = () =>
-  useQuery({ queryKey: ['todos'], queryFn: fetchTodos })
+export const useUserList1 = () =>
+  useQuery({ queryKey: ["users"], queryFn: getUsers });
 
 function ComponentOne() {
-  const { data } = useTodos()
+  const { data } = useUserList1()
 
   if (data) {
     // ⚠️ mounts conditionally, only after we already have data
@@ -115,7 +118,7 @@ function ComponentOne() {
 
 function ComponentTwo() {
   // ⚠️ will thus trigger a second network request
-  const { data } = useTodos()
+  const { data } = useUserList1()
 }
 
 ```
@@ -135,6 +138,25 @@ The `useQuery` hook has many options that you can pass in to customize its behav
 - **Turn queries on and off** <br/>
   We have one query that polls data regularly thanks to refetchInterval, but we can temporarily pause it if a Modal is open to avoid updates in the back of the screen.
 
+```tsx:title=two-network-request-on-first-mount {5,13}
+ const userQuery = useQuery<User, Error>(
+    ["users", userId],
+    () => getUser(userId!),
+    {
+      enabled: userId != null
+    }
+  );
+
+  const postsQuery = useQuery<Post, Error>(
+    ["posts", userQuery.data?.id ?? 0],
+    () => getPost(userQuery.data?.id ?? 0),
+    {
+      enabled: userQuery.isSuccess
+    }
+  );
+
+
+```
 ### Treat the query key like a dependency array + A new cache entry
 
 CodeSandbox
