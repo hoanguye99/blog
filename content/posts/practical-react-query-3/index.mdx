@@ -11,17 +11,16 @@ tags:
 import Attribution from 'components/Attribution'
 import Comments from 'components/Comments'
 import Translations from 'components/Translations'
-import { FetchingComparison } from './comparison.tsx'
+import { ClientStateManagementComparison } from './comparison.tsx'
+import { RqToc } from 'components/rq-toc'
 
 <img src="./react-query-banner.png" />
+
+<RqToc id="practical-react-query-3-client-state-zustand" />
 
 <Translations>{[]}</Translations>
 
 In part 3, we will learn about React Query in combination with client state management - Zustand
-
-I want this post to be exactly like this.
-
-[Link](https://tkdodo.eu/blog/react-query-fa-qs#how-can-i-pass-parameters-to-refetch)
 
 Fetch data of different user and display
 
@@ -106,8 +105,6 @@ The control flow looks like this:
 
 `Zustand` là một thư viện quản lý trạng thái cho React, được thiết kế để đơn giản hóa việc quản lý trạng thái trong các ứng dụng React. Dễ sử dụng và linh hoạt để tổ chức và chia sẻ trạng thái trong ứng dụng.
 
-#### 1. Ưu điểm
-
 - Được sinh ra để sử dụng đợn giản và thực tế hơn so với Redux
 - Dung lượng nhỏ: 1,5kB
 - Dễ Sử Dụng
@@ -118,29 +115,6 @@ The control flow looks like this:
 
 - Quản Lý Trạng Thái:
   -Cho phép quản lý toàn dự án một cách hiệu quả, giảm sự phụ thuộc vào props drilling.
-
-- Tối Ưu Hóa Hiệu Suất:
-
-  - Bằng cách tự động quản lý theo store , chỉ cập nhật các thành phần đã chọn để thay đổi
-
-- Middleware và Plugins:
-
-  - Hỗ trợ middleware và plugins để mở rộng tính năng và tăng khả năng sửa đổi của thư viện.
-
-- Chia Sẻ Trạng Thái Dễ Dàng:
-  - Cho phép chia sẻ trạng thái giữa các thành phần mà không cần truyền qua lại qua props.
-
-#### 2. Nhược điểm
-
-- Phức Tạp Cho Các Ứng Dụng Nhỏ:
-
-  - Đối với các ứng dụng nhỏ hoặc đơn giản, có thể cảm thấy lằng nhằng và phức tạp.
-
-- Thiếu Cộng Đồng So Với Redux:
-- `Zustand` không có một cộng đồng lớn như `Redux`, điều này có thể là một nhược điểm đối với những người tìm kiếm tài liệu và hỗ trợ rộng rãi.
-
-- Khả Năng Mở Rộng Có Hạn:
-  - Trong các ứng dụng lớn và phức tạp, `Zustand` có thể có khả năng mở rộng có hạn so với các giải pháp như `Redux` với nhiều chức năng.
 
 #### Difference vs. useState
 
@@ -169,7 +143,7 @@ export const useSelectedOptionStore = create<SelectedOptionStore>((set) => ({
 #### Table Comparison
 
 <br />
-<FetchingComparison />
+<ClientStateManagementComparison />
 
 #### `keepPreviousData` for better UX
 

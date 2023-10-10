@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Table } from 'antd'
 import './style.css'
 
-export function FetchingComparison() {
+export function ClientStateManagementComparison() {
   const data = [
     {
       usestate: 'Dễ sử dụng và hiểu',

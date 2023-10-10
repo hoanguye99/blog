@@ -11,18 +11,15 @@ tags:
 import Attribution from 'components/Attribution'
 import Comments from 'components/Comments'
 import Translations from 'components/Translations'
+import { RqToc } from 'components/rq-toc'
 
 <img src="./react-query-banner.png" />
 
-- [#1: Client State vs. Server State](client-state-vs-server-state)
-- [#2: Practical React Query 1 - tips and tricks](practical-react-query-1-tips-and-tricks)
-- <b>
-    #3: Practical React Query 2 - custom hooks and query key factory
-  </b>
+<RqToc id="practical-react-query-2-custom-hooks-and-query-key-factory" />
 
 <Translations>{[]}</Translations>
 
-In part 2, we will learn about React Quey tips and tricks: the `useQuery` hook and mutations
+In part 2, we will learn about custom hooks and Query Key Factory. My projects' query keys follow [this pattern](https://tkdodo.eu/blog/effective-react-query-keys)
 
 ## Custom Hooks
 
@@ -43,8 +40,12 @@ It is good because you can do this:
 queryClient.setQueryDefaults(todoKeys.all, { staleTime: 1000 * 60 })
 ```
 
-Non-matching query key. If you dont use query key factory, the following could happen
-[Link](https://tkdodo.eu/blog/react-query-fa-qs#1-query-keys-are-not-matching)
+Can you recognize the difference? It could cause a mistake some day.
+
+```json:title=non-matching-keys
+['item', '1']
+['item', 1]
+```
 
 ---
 
