@@ -11,6 +11,7 @@ tags:
 import Attribution from 'components/Attribution'
 import Comments from 'components/Comments'
 import Translations from 'components/Translations'
+import { FetchingComparison } from './comparison.tsx'
 
 <img src="./react-query-banner.png" />
 
@@ -89,12 +90,59 @@ const { data, refetch } = useQuery({
 
 your thinking goes from: "If I click that button, I want to refetch" towards: "I always want to see data for the current id".
 
-### Usage With Zustand & more practical example
+#### Visualising Control Flow
 
-Place setID inside a set input number
+I usually hook state variable with user input like text and select option - controlled components, and then hook the control state to the query key.
+The control flow looks like this:
 
+- Initial Data Load with pre-existing options
+- User interact with input
+- Input state change reflect in state change
+- Query Key change -> New cache entry
+- The query change to hard loading state
+- New data comes and display
 
-#### Zustand
+### Zustand
+
+`Zustand` là một thư viện quản lý trạng thái cho React, được thiết kế để đơn giản hóa việc quản lý trạng thái trong các ứng dụng React. Dễ sử dụng và linh hoạt để tổ chức và chia sẻ trạng thái trong ứng dụng.
+
+#### 1. Ưu điểm
+
+- Được sinh ra để sử dụng đợn giản và thực tế hơn so với Redux
+- Dung lượng nhỏ: 1,5kB
+- Dễ Sử Dụng
+
+  - Cú Pháp Gần Với React:
+  - `Zustand` sử dụng cú pháp gần với React Hooks, làm cho nó dễ hiểu và
+    sử dụng cho những người làm việc với React.
+
+- Quản Lý Trạng Thái:
+  -Cho phép quản lý toàn dự án một cách hiệu quả, giảm sự phụ thuộc vào props drilling.
+
+- Tối Ưu Hóa Hiệu Suất:
+
+  - Bằng cách tự động quản lý theo store , chỉ cập nhật các thành phần đã chọn để thay đổi
+
+- Middleware và Plugins:
+
+  - Hỗ trợ middleware và plugins để mở rộng tính năng và tăng khả năng sửa đổi của thư viện.
+
+- Chia Sẻ Trạng Thái Dễ Dàng:
+  - Cho phép chia sẻ trạng thái giữa các thành phần mà không cần truyền qua lại qua props.
+
+#### 2. Nhược điểm
+
+- Phức Tạp Cho Các Ứng Dụng Nhỏ:
+
+  - Đối với các ứng dụng nhỏ hoặc đơn giản, có thể cảm thấy lằng nhằng và phức tạp.
+
+- Thiếu Cộng Đồng So Với Redux:
+- `Zustand` không có một cộng đồng lớn như `Redux`, điều này có thể là một nhược điểm đối với những người tìm kiếm tài liệu và hỗ trợ rộng rãi.
+
+- Khả Năng Mở Rộng Có Hạn:
+  - Trong các ứng dụng lớn và phức tạp, `Zustand` có thể có khả năng mở rộng có hạn so với các giải pháp như `Redux` với nhiều chức năng.
+
+#### Difference vs. useState
 
 Here is useState:
 
@@ -118,16 +166,30 @@ export const useSelectedOptionStore = create<SelectedOptionStore>((set) => ({
 }));
 ```
 
+#### Table Comparison
+
+<br />
+<FetchingComparison />
+
 #### `keepPreviousData` for better UX
 
-### Place State Variable inside Query Key
+You might notice that switching query keys will put your query into hard loading state again. That is expected, because we change keys and there is no data for that key yet.
 
-I usually hook state variable with user input like text and select option - controlled components, and then hook the control state to the query key.
-The control flow looks like this:
+There are a bunch of ways to ease the transition, a nice approach to tackle this problem is to instruct the query to keep previous data:
 
-- Initial Data Load with pre-existing options
-- User interact with input
-- Input state change reflect in state change
-- Query Key change -> New cache entry
-- The query change to hard loading state
-- New data comes and display
+```tsx:title=keep-previous-data {4,5}
+const { data, isPreviousData } = useQuery({
+  queryKey: ['item', id],
+  queryFn: () => fetchItem({ id }),
+  // ⬇️ like this️
+  keepPreviousData: true
+})
+```
+
+With this flag on, React Query will still show data for id 1 while data for id 2 is being fetched. When data for id 2 is ready, it is seamlessly swaped with the data in the cache. Additionally, the isPreviousData flag on the query result will be set to true, so that you can act accordingly in the UI.
+
+---
+
+That's it for today. If you have any questions, or just leave a comment below. ⬇️
+
+<Comments />
