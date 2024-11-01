@@ -16,19 +16,22 @@ const About = () => (
     />
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <p style={{ marginBottom: 0, marginTop: 0 }}>
-        <Text sx={{ fontWeight: 'bold' }}>Hi 👋, my name is Hoang</Text>
+        <Text sx={{ fontWeight: 'bold' }}>
+          Hi 👋, my name is Hoang, a web developer.
+        </Text>
       </p>
       <p style={{ marginBottom: 0 }}>
         <Text>
-          I'm a Web Developer with a passion for ReactJs. I ❤️
-          TypeScript, TailwindCSS and Tanstack Query.
+          I love writing React code in TypeScript with TailwindCSS
+          because it’s convenient and reduces boilerplate.
         </Text>
       </p>
 
       <p style={{ marginBottom: 0 }}>
         <Text>
-          Welcome to my personal blog 📚, where I write about all things
-          React, TypeScript and of course react-query.
+          Tanstack Query is also an efficient and easy-to-use tool for
+          data fetching in React. That’s why I wrote this blog to
+          explain the fundamentals of Tanstack Query.
         </Text>
       </p>
     </div>
